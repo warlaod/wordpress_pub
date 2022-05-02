@@ -1,6 +1,6 @@
 <?php
 
-require 'analyzer/module/cron_init.php';
+require 'module/cron_init.php';
 
 // make searchlistt.json
 
@@ -15,7 +15,7 @@ $character_list = get_custom_fileds('character');
 
 $search_list = array_merge($tag_list, $category_list, $author_list, $type_list, $group_list, $series_list, $character_list);
 
-$file = fopen("wp-content/themes/luxeritas/searchlist.json", "w");
+$file = fopen("wp-content/themes/luxeritas/taglist.json", "w");
 fwrite($file, json_encode($search_list, JSON_UNESCAPED_UNICODE));
 fclose($file);
 
@@ -29,7 +29,7 @@ function get_custom_fileds(string $key): array
   // 配列をデシリアライズし、重複を弾いたuniqueなvaluesを取得する
   $unserialized_values = array();
 
-  if ($key != 'type' && $key != 'group') {
+  if ($key != 'type') {
     foreach ($serialized_values as $serialized_value) {
       $unserialized_value = unserialize($serialized_value);
       if (!is_array($unserialized_value)) {

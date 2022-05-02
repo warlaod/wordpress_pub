@@ -59,39 +59,45 @@ DELETE FROM
 DELETE FROM
   `wdp_term_taxonomy`;
 
+CREATE TABLE IF NOT EXISTS `wdp_post_origin_info` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `post_id` bigint(20) unsigned NOT NULL,
+  `article_url` text COLLATE utf8_unicode_520_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `article_uniq` (`article_url`(255)),
+  KEY `linked_with_post_id_deletion` (`post_id`),
+  CONSTRAINT `linked_with_post_id_deletion` FOREIGN KEY (`post_id`) REFERENCES `wdp_posts` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_520_ci;
+
 CREATE TABLE `wdp_crawled_articles` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `article_url` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `article_html` longtext COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `post_id` bigint(20) unsigned,
-  `analyzed` tinyint(4) NOT NULL DEFAULT '0',
+  `article_url` varchar(255) COLLATE utf8_unicode_520_ci NOT NULL,
+  `article_html` longtext COLLATE utf8_unicode_520_ci NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `article_url` (`article_url`),
-  KEY `post_id` (`post_id`),
-  CONSTRAINT `wdp_crawled_articles_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `wdp_posts` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_520_ci;
+  UNIQUE KEY `article_url` (`article_url`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_520_ci;
 
 INSERT INTO
   `wdp_terms` (`term_id`, `name`, `slug`, `term_group`)
 VALUES
-  (166, 'Indonesian', 'indonesian', 0),
-  (165, 'German', 'german', 0),
+  (166, 'Bahasa Indonesia', 'bahasa-indonesia', 0),
+  (165, 'Deutsch', 'deutsch', 0),
   (164, 'English', 'english', 0),
-  (163, 'Spanish', 'spanish', 0),
-  (162, 'French', 'french', 0),
-  (161, 'Italian', 'italian', 0),
-  (160, 'Portuguese', 'portuguese', 0),
-  (159, 'Vietnamese', 'vietnamese', 0),
+  (163, 'Español', 'espanol', 0),
+  (162, 'Français', 'francais', 0),
+  (161, 'Italiano', 'italiano', 0),
+  (160, 'Português', 'portugues', 0),
+  (159, 'Tiếng Việt', 'tieng-viet', 0),
   (
     158,
-    'Russian',
-    'russian',
+    'Русский',
+    '%d1%80%d1%83%d1%81%d1%81%d0%ba%d0%b8%d0%b9',
     0
   ),
-  (157, 'Thai', 'thai', 0),
-  (156, 'Korean', 'korean', 0),
-  (155, 'Chinese', 'chinese', 0),
-  (154, 'Japanese', 'japanese', 0),
+  (157, 'ไทย', '%e0%b9%84%e0%b8%97%e0%b8%a2', 0),
+  (156, '한국어', '%ed%95%9c%ea%b5%ad%ec%96%b4', 0),
+  (155, '中文', '%e4%b8%ad%e6%96%87', 0),
+  (154, '日本語', '%e6%97%a5%e6%9c%ac%e8%aa%9e', 0),
   (153, 'N/A', 'n-a', 0);
 
 INSERT INTO
