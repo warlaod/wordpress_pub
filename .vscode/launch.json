@@ -1,0 +1,45 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "go-debug",
+      "type": "go",
+      "request": "launch",
+      "mode": "debug",
+      "program": "/workspace/html/crons/cmd",
+      "showLog": true
+    },
+    {
+      "name": "Listen for XDebug(Local)",
+      "type": "php",
+      // for local
+      "hostname": "0.0.0.0",
+      "pathMappings": {
+        "/var/www/html": "${workspaceRoot}/html"
+      },
+      "request": "launch",
+      "port": 9000,
+      "xdebugSettings": {
+        "max_children": 999,
+        "max_data": -1,
+        "max_depth": 10
+      }
+    },
+    // {
+    //   "name": "Listen for XDebug(Remote)",
+    //   "type": "php",
+    //   // for remote
+    //   "hostname": "111.90.149.229",
+    //   "pathMappings": {
+    //     "/home/example/public_html": "${workspaceRoot}"
+    //   },
+    //   "request": "launch",
+    //   "port": 9000,
+    //   "xdebugSettings": {
+    //     "max_children": 999,
+    //     "max_data": -1,
+    //     "max_depth": 10
+    //   }
+    // }
+  ]
+}
